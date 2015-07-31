@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,12 @@ public class FragmentDrawer extends Fragment {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                toolbar.setAlpha(1 - slideOffset / 2);
+                LinearLayout promptBackground =
+                        (LinearLayout) getActivity().findViewById(R.id.promptBackground);
+                float opacity = 1 - slideOffset / 2;
+
+                toolbar.setAlpha(opacity);
+                promptBackground.setAlpha(opacity);
             }
         };
 

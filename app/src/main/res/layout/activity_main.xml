@@ -32,6 +32,27 @@
                     layout="@layout/toolbar" />
             </LinearLayout>
 
+            <!--Home-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:background="@color/primary"
+                android:id="@+id/promptBackground">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/prompt"
+                    android:text="@string/placeholder_home_prompt"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="16dp"/>
+            </LinearLayout>
+
             <!-- The main content view -->
             <FrameLayout
                 android:id="@+id/content_frame"

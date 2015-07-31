@@ -20,4 +20,6 @@
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 
+    <!--Placeholders-->
+    <string name="placeholder_home_prompt">What\'s for Dinner?</string>
 </resources>
