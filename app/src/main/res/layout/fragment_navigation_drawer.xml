@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="104dp"
         android:layout_alignParentTop="true"
         android:background="@color/primary">
 
@@ -17,9 +17,9 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:id="@+id/imageView"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:id="@+id/appLogo"
                 android:src="@drawable/eat_it_icon"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="32dp"
@@ -27,18 +27,40 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-medium"
-                android:id="@+id/textView"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_marginLeft="16dp" />
+                android:layout_toRightOf="@+id/appLogo"
+                android:layout_toEndOf="@+id/appLogo"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/appTextGroup"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="24sp"
+                    android:id="@+id/appName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/app_slogan"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-regular"
+                    android:textSize="14sp"
+                    android:id="@+id/appSlogan"
+                    android:layout_below="@+id/appName"
+                    android:layout_alignLeft="@+id/appName"
+                    android:layout_alignStart="@+id/appName" />
+
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 

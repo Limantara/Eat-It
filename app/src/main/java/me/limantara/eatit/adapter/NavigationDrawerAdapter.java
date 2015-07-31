@@ -1,7 +1,9 @@
 package me.limantara.eatit.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,6 +102,9 @@ public class NavigationDrawerAdapter
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
+            Typeface font = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+            title.setTypeface(font);
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         }
     }
 }
