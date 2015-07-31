@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">Eat It</string>
     <string name="action_settings">Settings</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!--Main activity variables-->
+    <string name="text_prompt">What\'s for {eat_time}?</string>
+
+    <!--Drawer variables-->
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_preference">Preference</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_preference</item>
+    </string-array>
+
+    <string name="title_messages">Messages</string>
+    <string name="title_friends">Friends</string>
+    <string name="title_home">Home</string>
+
 </resources>
