@@ -23,4 +23,7 @@
 
     <!--Placeholders-->
     <string name="placeholder_home_prompt">What\'s for Dinner?</string>
+    <string name="title_activity_display_result">DisplayResult</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

@@ -1,6 +1,8 @@
 package me.limantara.eatit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        // Set up button animation
+        FloatingActionButton buttonExplore =
+                (FloatingActionButton) findViewById(R.id.buttonExplore);
+        buttonExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DisplayResult.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
