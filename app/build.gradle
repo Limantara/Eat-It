@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "me.limantara.eatit"
-        minSdkVersion 8
-        targetSdkVersion 22
+        minSdkVersion 11
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
