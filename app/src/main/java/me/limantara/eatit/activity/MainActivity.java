@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
+    public final static String TOOLBAR_TITLE = "me.limantara.eatit.TOOLBAR_TITLE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +81,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-        System.out.println("Selected menu: " + getResources()
-                           .getStringArray(R.array.nav_drawer_labels)[position]
-        );
+        String[] titles = getResources().getStringArray(R.array.nav_drawer_labels);
 
         if(position > 0) {
             Intent intent = new Intent(MainActivity.this, DisplayResult.class);
+            intent.putExtra(TOOLBAR_TITLE, titles[position]);
             startActivity(intent);
         }
     }

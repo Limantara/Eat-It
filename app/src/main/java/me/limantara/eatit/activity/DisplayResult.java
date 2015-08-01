@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import me.limantara.eatit.R;
 
@@ -34,6 +35,12 @@ public class DisplayResult extends AppCompatActivity
         drawerFragment.setUp(R.id.fragment_navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
+        // Set up toolbar title
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+        Intent intent = getIntent();
+
+        toolbarTitle.setText(intent.getStringExtra(MainActivity.TOOLBAR_TITLE));
     }
 
     @Override
