@@ -10,11 +10,21 @@
 
     <!--Drawer variables-->
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_preference">Preference</string>
+    <string name="nav_item_last_suggestion">Last Suggestion</string>
+    <string name="nav_item_recent_suggestions">Recent Suggestions</string>
+    <string name="nav_item_set_budget">Set Budget</string>
+    <string name="nav_item_set_distance">Set Distance</string>
+    <string name="nav_item_set_location">Set Location</string>
+    <string name="nav_item_help">Help Center</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
-        <item>@string/nav_item_preference</item>
+        <item>@string/nav_item_last_suggestion</item>
+        <item>@string/nav_item_recent_suggestions</item>
+        <item>@string/nav_item_set_budget</item>
+        <item>@string/nav_item_set_distance</item>
+        <item>@string/nav_item_set_location</item>
+        <item>@string/nav_item_help</item>
     </string-array>
 
     <string name="title_messages">Messages</string>

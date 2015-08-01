@@ -81,7 +81,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="48dp"
                     android:layout_below="@+id/preferenceTitle"
                     android:id="@+id/budget">
 
@@ -93,10 +93,10 @@
                         android:textSize="16sp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="72dp"
-                        android:id="@+id/textView" />
+                        android:id="@+id/textView"/>
 
                     <ImageView
-                        android:layout_width="40dp"
+                        android:layout_width="24dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/imageView"
                         android:src="@drawable/ic_wallet"
@@ -110,7 +110,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="88dp"
+                    android:layout_height="72dp"
                     android:id="@+id/preferenceTitle"
                     android:layout_marginTop="144dp">
 
@@ -120,13 +120,13 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Preference"
                         android:layout_marginLeft="16dp"
-                        android:layout_gravity="bottom"
-                        android:id="@+id/textView3" />
+                        android:id="@+id/textView3"
+                        android:layout_gravity="center_vertical" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="48dp"
                     android:layout_below="@+id/budget"
                     android:id="@+id/distance">
 
@@ -141,7 +141,7 @@
                         android:id="@+id/textView2" />
 
                     <ImageView
-                        android:layout_width="40dp"
+                        android:layout_width="24dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_binocular"
                         android:layout_marginLeft="16dp"
@@ -153,7 +153,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="48dp"
                     android:layout_below="@id/distance">
 
                     <TextView
@@ -166,7 +166,7 @@
                         android:layout_marginLeft="72dp" />
 
                     <ImageView
-                        android:layout_width="40dp"
+                        android:layout_width="24dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_location"
                         android:layout_marginLeft="16dp"
