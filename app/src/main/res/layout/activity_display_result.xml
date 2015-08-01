@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.limantara.eatit.activity.DisplayResult">
+    tools:context=".MainActivity">
 
     <!--Drawer-->
     <android.support.v4.widget.DrawerLayout
@@ -21,7 +22,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/container_toolbar"
@@ -33,6 +34,14 @@
                         android:id="@+id/toolbar"
                         layout="@layout/toolbar" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Display food result"
+                    android:layout_below="@+id/container_toolbar"
+                    android:id="@+id/textView4" />
 
             </RelativeLayout>
 

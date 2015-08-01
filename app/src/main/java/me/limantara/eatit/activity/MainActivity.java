@@ -79,7 +79,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
+        System.out.println("Selected menu: " + getResources()
+                           .getStringArray(R.array.nav_drawer_labels)[position]
+        );
 
+        if(position > 0) {
+            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
+            startActivity(intent);
+        }
     }
 
 }

@@ -115,7 +115,9 @@ public class FragmentDrawer extends Fragment {
                         (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
                 Animation animation =
                         AnimationUtils.loadAnimation(getActivity(), R.anim.simple_shrink);
-                buttonExplore.startAnimation(animation);
+
+                if(buttonExplore != null)
+                    buttonExplore.startAnimation(animation);
             }
 
             @Override
@@ -126,7 +128,9 @@ public class FragmentDrawer extends Fragment {
                 FloatingActionButton buttonExplore =
                         (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
                 Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_grow);
-                buttonExplore.startAnimation(animation);
+
+                if(buttonExplore != null)
+                    buttonExplore.startAnimation(animation);
             }
 
             @Override
@@ -137,7 +141,9 @@ public class FragmentDrawer extends Fragment {
                 float opacity = 1 - slideOffset / 2;
 
                 toolbar.setAlpha(opacity);
-                promptBackground.setAlpha(opacity);
+
+                if(promptBackground != null)
+                    promptBackground.setAlpha(opacity);
             }
         };
 
