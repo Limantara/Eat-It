@@ -25,5 +25,15 @@
     <string name="placeholder_home_prompt">What\'s for Dinner?</string>
     <string name="title_activity_display_result">DisplayResult</string>
 
+    <!--Locu Credential-->
+    <string name="locu_api_key">38fccb5e728300198562e02fa1c37b4c00b9a0bb</string>
+
+    <!--Parse Credential-->
+    <string name="parse_app_id">72mD9sP3CUMfmQC6ytlEuzYAomvByg6o0T2uFUcw</string>
+    <string name="parse_client_key">00cBG2hf33rEKNM9iGmG6iuB9kpCZjkkro8PcBy8</string>
+
+    <!--Bing Credential-->
+    <string name="bing_primary_key">gSc9pO/+psFv32M38MEIF6ldwP0x7f61bccefZ861U8</string>
+
     <string name="hello_world">Hello world!</string>
 </resources>

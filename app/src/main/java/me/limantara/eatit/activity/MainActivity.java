@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         drawerFragment.setDrawerListener(this);
 
 
-        FloatingActionButton buttonExplore =
+        final FloatingActionButton buttonExplore =
                 (FloatingActionButton) findViewById(R.id.buttonExplore);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
         animation.setStartOffset(500);
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity
         buttonExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DisplayResult.class);
-                startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
+            startActivity(intent);
             }
         });
     }
