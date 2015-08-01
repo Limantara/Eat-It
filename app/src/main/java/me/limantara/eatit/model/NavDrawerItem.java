@@ -6,6 +6,7 @@ package me.limantara.eatit.model;
 public class NavDrawerItem {
     private boolean showNotify;
     private String title;
+    private int icon;
 
     /**
      * Create a new drawer item.
@@ -49,5 +50,23 @@ public class NavDrawerItem {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Getter method to get drawable id
+     *
+     * @return
+     */
+    public int getIcon() {
+        return icon;
+    }
+
+    /**
+     * Setter method to set icon with drawable id
+     *
+     * @param icon
+     */
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

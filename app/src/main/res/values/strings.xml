@@ -27,6 +27,16 @@
         <item>@string/nav_item_help</item>
     </string-array>
 
+    <string-array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_suggestion</item>
+        <item>@drawable/ic_suggestions</item>
+        <item>@drawable/ic_wallet</item>
+        <item>@drawable/ic_binocular</item>
+        <item>@drawable/ic_location</item>
+        <item>@drawable/ic_help</item>
+    </string-array>
+
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>

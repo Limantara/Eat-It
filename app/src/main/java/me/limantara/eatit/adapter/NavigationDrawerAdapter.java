@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -84,6 +85,7 @@ public class NavigationDrawerAdapter
     public void onBindViewHolder(NavigationDrawerAdapter.MyViewHolder holder, int position) {
         NavDrawerItem current = data.get(position);
         holder.title.setText(current.getTitle());
+        holder.icon.setImageResource(current.getIcon());
     }
 
     /**
@@ -98,13 +100,12 @@ public class NavigationDrawerAdapter
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        ImageView icon;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            Typeface font = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-            title.setTypeface(font);
-            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            icon = (ImageView) itemView.findViewById(R.id.icon);
         }
     }
 }
