@@ -9,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import me.limantara.eatit.R;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener {
+
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
@@ -35,9 +38,14 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-        // Set up button animation
+
         FloatingActionButton buttonExplore =
                 (FloatingActionButton) findViewById(R.id.buttonExplore);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
+        animation.setStartOffset(500);
+        buttonExplore.startAnimation(animation);
+
+        // Set up button click listener
         buttonExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,4 +81,5 @@ public class MainActivity extends AppCompatActivity
     public void onDrawerItemSelected(View view, int position) {
 
     }
+
 }

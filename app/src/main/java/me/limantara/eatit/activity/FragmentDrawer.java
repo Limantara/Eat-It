@@ -2,6 +2,7 @@ package me.limantara.eatit.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -101,12 +104,23 @@ public class FragmentDrawer extends Fragment {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
+
+                FloatingActionButton buttonExplore =
+                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
+                Animation animation =
+                        AnimationUtils.loadAnimation(getActivity(), R.anim.simple_shrink);
+                buttonExplore.startAnimation(animation);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
+
+                FloatingActionButton buttonExplore =
+                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_grow);
+                buttonExplore.startAnimation(animation);
             }
 
             @Override
