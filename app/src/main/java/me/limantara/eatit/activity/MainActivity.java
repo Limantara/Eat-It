@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
         if(selectedVenue == null)
             selectedVenue = SQLiteHelper.getInstance(this).findVenueFromFood(selectedFood);
 
+        intent.putExtra(TOOLBAR_TITLE, "Latest Suggestion");
         intent.putExtra(VENUE, selectedVenue);
         intent.putExtra(FOOD, selectedFood);
         intent.putExtra(STORE_FOOD, storeFood);
