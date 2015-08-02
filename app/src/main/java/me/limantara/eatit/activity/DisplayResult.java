@@ -122,7 +122,7 @@ public class DisplayResult extends AppCompatActivity
     private void fillTextViews() {
         restaurantName = (TextView) findViewById(R.id.restaurantName);
         foodName = (TextView) findViewById(R.id.foodName);
-        foodPrice = (TextView) findViewById(R.id.foodPrice);
+        foodPrice = (TextView) findViewById(R.id.foodDescription);
         foodDescription = (TextView) findViewById(R.id.foodDescription);
         imageFood = (ImageView) findViewById(R.id.imageFood);
 

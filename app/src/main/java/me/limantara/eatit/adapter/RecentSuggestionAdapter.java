@@ -1,9 +1,7 @@
 package me.limantara.eatit.adapter;
 
-import android.content.Context;
-import android.graphics.Typeface;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,31 +9,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Collections;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+
 import java.util.List;
 
+import me.limantara.eatit.Helper.VolleyHelper;
 import me.limantara.eatit.R;
-import me.limantara.eatit.model.NavDrawerItem;
+import me.limantara.eatit.model.Venue;
 
 /**
- * Created by edwinlimantara on 7/31/15.
+ * Created by edwinlimantara on 8/2/15.
  */
-public class NavigationDrawerAdapter
-        extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
+public class RecentSuggestionAdapter
+    extends RecyclerView.Adapter<RecentSuggestionAdapter.ViewHolder> {
 
-    List<NavDrawerItem> data = Collections.emptyList();
-    private LayoutInflater inflater;
-    private Context context;
+    private List<Venue.Item> foodList;
+    private static View rootView;
 
-    public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-        this.data = data;
-    }
-
-    public void delete(int position) {
-        data.remove(position);
-        notifyItemRemoved(position);
+    public RecentSuggestionAdapter(List<Venue.Item> foodList) {
+        this.foodList = foodList;
     }
 
     /**
@@ -59,10 +53,12 @@ public class NavigationDrawerAdapter
      * @see #onBindViewHolder(ViewHolder, int)
      */
     @Override
-    public NavigationDrawerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.nav_drawer_row, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        rootView = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.food_list_row, parent, false);
+
+        return new ViewHolder(rootView);
     }
 
     /**
@@ -83,10 +79,11 @@ public class NavigationDrawerAdapter
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(NavigationDrawerAdapter.MyViewHolder holder, int position) {
-        NavDrawerItem current = data.get(position);
-        holder.title.setText(current.getTitle());
-        holder.icon.setImageResource(current.getIcon());
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Venue.Item food = foodList.get(position);
+        holder.foodName.setText(food.name);
+        holder.foodDescription.setText(food.description.trim());
+        holder.fillImage(food.images.get(0));
     }
 
     /**
@@ -96,17 +93,40 @@ public class NavigationDrawerAdapter
      */
     @Override
     public int getItemCount() {
-        return data.size();
+        return foodList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        ImageView icon;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView foodName;
+        public TextView foodDescription;
+        public ImageView foodImage;
 
-        public MyViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            icon = (ImageView) itemView.findViewById(R.id.icon);
+            foodName = (TextView) itemView.findViewById(R.id.foodName);
+            foodDescription = (TextView) itemView.findViewById(R.id.foodDescription);
+            foodImage = (ImageView) itemView.findViewById(R.id.foodImage);
+        }
+
+        public void fillImage(String url) {
+            final ImageView img = foodImage;
+            ImageRequest request = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        img.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println(volleyError);
+                    }
+                }
+            );
+
+            VolleyHelper.getInstance(RecentSuggestionAdapter.rootView.getContext())
+                    .addToRequestObject(request);
         }
     }
 }

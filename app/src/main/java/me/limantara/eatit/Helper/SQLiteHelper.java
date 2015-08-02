@@ -214,7 +214,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      */
     public List<Venue.Item> getAllFoods() {
         List<Venue.Item> foods = new ArrayList<>();
-        String query = "SELECT * FROM foods";
+        String query = "SELECT * FROM foods ORDER BY created_at DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
