@@ -87,7 +87,7 @@ public class BingAPI implements Response.Listener<String>, Response.ErrorListene
         // If Bing has the food pictures
         if(images.size() > 0) {
             selectedFood.images = images;
-            mainActivity.moveOn(selectedFood, true);
+            mainActivity.displayResult(selectedFood, true);
         }
         else {
             mainActivity.findAnotherVenue();

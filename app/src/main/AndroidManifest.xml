@@ -11,8 +11,8 @@
         android:theme="@style/EatItTheme" >
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,16 @@
         </activity>
         <activity
             android:name=".activity.DisplayResult"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_display_result"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.limantara.eatit.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.RecentSuggestion"
+            android:label="@string/title_activity_recent_suggestion" >
         </activity>
     </application>
 

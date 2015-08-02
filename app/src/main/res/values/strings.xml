@@ -56,4 +56,5 @@
     <string name="bing_primary_key">gSc9pO/+psFv32M38MEIF6ldwP0x7f61bccefZ861U8</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_recent_suggestion">RecentSuggestion</string>
 </resources>

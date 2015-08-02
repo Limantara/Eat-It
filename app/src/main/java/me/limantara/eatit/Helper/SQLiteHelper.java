@@ -236,17 +236,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      * @return
      */
     public Venue.Item getLatestFood() {
-        String query = "SELECT * FROM foods LIMIT 1";
+        String query = "SELECT * FROM foods ORDER BY created_at DESC LIMIT 1";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        if(cursor.moveToFirst()) {
-            Venue.Item food = new Venue.Item(cursor);
-            return food;
+        if(cursor.getCount() == 0) {
+            return null;
         }
 
-        return null;
+        cursor.moveToFirst();
+        Venue.Item food = new Venue.Item(cursor);
+        return food;
     }
 
     /**
@@ -257,6 +258,23 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS foods");
         db.execSQL("DROP TABLE IF EXISTS venues");
         createTables(db);
+    }
+
+    /**
+     * Print all (Venue, food) name records in the database.
+     */
+    public void printAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM foods";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            System.out.println("IN THE DATABASE: ");
+            while(cursor.moveToNext()) {
+                Venue.Item food = new Venue.Item(cursor);
+                System.out.println(food);
+            }
+        }
     }
 
     /**

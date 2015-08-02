@@ -59,12 +59,18 @@ public class DisplayResult extends AppCompatActivity
 
         // Set up toolbar title
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+        toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[1]);
+
         Intent intent = getIntent();
-
-        toolbarTitle.setText(intent.getStringExtra(MainActivity.TOOLBAR_TITLE));
-
-        selectedVenue = (Venue) intent.getSerializableExtra(MainActivity.VENUE);
-        selectedFood = (Venue.Item) intent.getSerializableExtra(MainActivity.FOOD);
+        if(intent.hasExtra(MainActivity.VENUE) && intent.hasExtra(MainActivity.FOOD)) {
+            selectedFood = (Venue.Item) intent.getSerializableExtra(MainActivity.FOOD);
+            selectedVenue = (Venue) intent.getSerializableExtra(MainActivity.VENUE);
+        }
+        else {
+            SQLiteHelper dbHelper = SQLiteHelper.getInstance(this);
+            selectedFood = dbHelper.getLatestFood();
+            selectedVenue = dbHelper.findVenueFromFood(selectedFood);
+        }
 
         fillTextViews();
         fillImage();
@@ -94,13 +100,19 @@ public class DisplayResult extends AppCompatActivity
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-        System.out.println("Selected menu: " + getResources()
-                        .getStringArray(R.array.nav_drawer_labels)[position]
-        );
+        Intent intent;
 
-        if(position == 0) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+        switch(position) {
+            case 0:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                break;
+            case 2:
+                intent = new Intent(this, RecentSuggestion.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -132,11 +144,14 @@ public class DisplayResult extends AppCompatActivity
                     public void onResponse(Bitmap bitmap) {
                         imageFood.setImageBitmap(bitmap);
 
+                        Intent intent = DisplayResult.this.getIntent();
                         // save to SQLite if store food is true
-                        if(DisplayResult.this.getIntent().getExtras().getBoolean(MainActivity.STORE_FOOD)) {
+                        if(intent.hasExtra(MainActivity.STORE_FOOD) &&
+                                intent.getExtras().getBoolean(MainActivity.STORE_FOOD)) {
                             SQLiteHelper dbHelper = SQLiteHelper.getInstance(DisplayResult.this);
                             dbHelper.createFood(selectedFood, selectedVenue,  url);
                             dbHelper.createVenue(selectedVenue);
+                            dbHelper.printAll();
                         }
                     }
                 }, 0, 0, null,

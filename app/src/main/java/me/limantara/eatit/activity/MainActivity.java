@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
-    public final static String TOOLBAR_TITLE = "me.limantara.eatit.TOOLBAR_TITLE";
     public final static String VENUE = "me.limantara.eatitorleaveit.VENUE";
     public final static String FOOD = "me.limantara.eatitorleaveit.FOOD";
     public final static String STORE_FOOD = "me.limantara.eatitorleaveit.STORE_FOOD";
@@ -41,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbHelper = SQLiteHelper.getInstance(this);
+        checkLimit();
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,15 +62,6 @@ public class MainActivity extends AppCompatActivity
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
         animation.setStartOffset(500);
         buttonExplore.startAnimation(animation);
-
-        // Set up button click listener
-//        buttonExplore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
-//            startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -96,14 +88,20 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-        String[] titles = getResources().getStringArray(R.array.nav_drawer_labels);
-
-        if(position > 0) {
-            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
-            intent.putExtra(TOOLBAR_TITLE, titles[position]);
-            startActivity(intent);
+        Intent intent;
+        switch(position) {
+            case 0:
+                break;
+            case 1:
+                intent = new Intent(this, DisplayResult.class);
+                startActivity(intent);
+                break;
+            case 2:
+                displayRecentSuggestion();
+                break;
         }
     }
+
     /**
      * Button click listener to make an API call to Locu.com
      *
@@ -137,17 +135,24 @@ public class MainActivity extends AppCompatActivity
     /**
      * Move on to the next activity - displaying the food result
      */
-    public void moveOn(Venue.Item selectedFood, boolean storeFood) {
+    public void displayResult(Venue.Item selectedFood, boolean storeFood) {
         Intent intent = new Intent(this, DisplayResult.class);
 
         if(selectedVenue == null)
             selectedVenue = SQLiteHelper.getInstance(this).findVenueFromFood(selectedFood);
 
-        intent.putExtra(TOOLBAR_TITLE, "Latest Suggestion");
         intent.putExtra(VENUE, selectedVenue);
         intent.putExtra(FOOD, selectedFood);
         intent.putExtra(STORE_FOOD, storeFood);
 
+        startActivity(intent);
+    }
+
+    /**
+     * Display all recent suggestions
+     */
+    private void displayRecentSuggestion() {
+        Intent intent = new Intent(this, RecentSuggestion.class);
         startActivity(intent);
     }
 
@@ -177,8 +182,7 @@ public class MainActivity extends AppCompatActivity
      * @return
      */
     private boolean checkLimit() {
-        SQLiteHelper db = SQLiteHelper.getInstance(this); db.refresh();
-        Venue.Item latestFood = db.getLatestFood();
+        Venue.Item latestFood = dbHelper.getLatestFood();
         Long current_eat_time = TimeHelper.getEatTimeObject().getTimeInMillis();
 
         if(latestFood != null)
