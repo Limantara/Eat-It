@@ -12,7 +12,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import java.util.List;
+
+import me.limantara.eatit.API.BingAPI;
+import me.limantara.eatit.API.LocuAPI;
+import me.limantara.eatit.Helper.SQLiteHelper;
+import me.limantara.eatit.Helper.TimeHelper;
+import me.limantara.eatit.Helper.Util;
 import me.limantara.eatit.R;
+import me.limantara.eatit.model.Venue;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentDrawer.FragmentDrawerListener {
@@ -21,6 +29,13 @@ public class MainActivity extends AppCompatActivity
     private FragmentDrawer drawerFragment;
 
     public final static String TOOLBAR_TITLE = "me.limantara.eatit.TOOLBAR_TITLE";
+    public final static String VENUE = "me.limantara.eatitorleaveit.VENUE";
+    public final static String FOOD = "me.limantara.eatitorleaveit.FOOD";
+    public final static String STORE_FOOD = "me.limantara.eatitorleaveit.STORE_FOOD";
+
+    private List<Venue> venues;
+    private Venue selectedVenue;
+    private SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +63,13 @@ public class MainActivity extends AppCompatActivity
         buttonExplore.startAnimation(animation);
 
         // Set up button click listener
-        buttonExplore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
-            startActivity(intent);
-            }
-        });
+//        buttonExplore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            Intent intent = new Intent(MainActivity.this, DisplayResult.class);
+//            startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -89,5 +104,85 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
     }
+    /**
+     * Button click listener to make an API call to Locu.com
+     *
+     * @param view
+     */
+    public void callLocu(View view) {
+        int radius = 4828; // 3 miles
+        new LocuAPI(this, radius).makeApiCall();
+    }
 
+    /**
+     * Select a random food from a list of restaurants and
+     * find its pictures on Bing
+     *
+     * @param venues
+     */
+    public void findFood(List<Venue> venues) {
+        this.venues = venues;
+        selectedVenue = pickAVenue();
+        new BingAPI(this, selectedVenue.getFoods()).makeApiCall();
+    }
+
+    /**
+     * Find another venue if none of the food in this place has
+     * a picture on Bing.
+     */
+    public void findAnotherVenue() { System.out.println("Find another venue is called");
+        findFood(venues);
+    }
+
+    /**
+     * Move on to the next activity - displaying the food result
+     */
+    public void moveOn(Venue.Item selectedFood, boolean storeFood) {
+        Intent intent = new Intent(this, DisplayResult.class);
+
+        if(selectedVenue == null)
+            selectedVenue = SQLiteHelper.getInstance(this).findVenueFromFood(selectedFood);
+
+        intent.putExtra(VENUE, selectedVenue);
+        intent.putExtra(FOOD, selectedFood);
+        intent.putExtra(STORE_FOOD, storeFood);
+
+        startActivity(intent);
+    }
+
+    /**
+     * Get a random venue and remove it from the list.
+     *
+     * @return
+     */
+    private Venue pickAVenue() {
+        Venue venue = null;
+
+        while( ! venues.isEmpty()) {
+            int i = Util.getRandomNumber(0, venues.size());
+            venue = venues.get(i);
+            venues.remove(i);
+
+            if(venue.getFoods() != null)
+                break;
+        }
+
+        return venue;
+    }
+
+    /**
+     * Check if the limit (one suggestion per eat time) has been reached
+     *
+     * @return
+     */
+    private boolean checkLimit() {
+        SQLiteHelper db = SQLiteHelper.getInstance(this); db.refresh();
+        Venue.Item latestFood = db.getLatestFood();
+        Long current_eat_time = TimeHelper.getEatTimeObject().getTimeInMillis();
+
+        if(latestFood != null)
+            return latestFood.created_at >= current_eat_time;
+        else
+            return false;
+    }
 }

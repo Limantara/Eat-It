@@ -75,9 +75,28 @@
                         app:pressedTranslationZ="12dp"
                         app:fabSize="normal"
                         app:layout_anchor="@id/promptBackground"
-                        app:layout_anchorGravity="bottom|right|end"/>
+                        app:layout_anchorGravity="bottom|right|end"
+                        android:onClick="callLocu"
+                        android:nestedScrollingEnabled="true" />
 
                 </android.support.design.widget.CoordinatorLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:id="@+id/preferenceTitle"
+                    android:layout_marginTop="144dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Preference"
+                        android:layout_marginLeft="16dp"
+                        android:id="@+id/textView3"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -107,22 +126,15 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:id="@+id/preferenceTitle"
-                    android:layout_marginTop="144dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Preference"
-                        android:layout_marginLeft="16dp"
-                        android:id="@+id/textView3"
-                        android:layout_gravity="center_vertical" />
-                </LinearLayout>
+                <View style="@style/Divider"
+                    android:layout_below="@+id/preferenceTitle"/>
+                <View style="@style/Divider"
+                    android:layout_below="@+id/budget"/>
+                <View style="@style/Divider"
+                    android:layout_below="@+id/distance"/>
+                <View style="@style/Divider"
+                    android:layout_below="@+id/location"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -154,7 +166,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_below="@id/distance">
+                    android:layout_below="@id/distance"
+                    android:id="@+id/location">
 
                     <TextView
                         android:layout_width="match_parent"
