@@ -102,17 +102,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_below="@+id/preferenceTitle"
-                    android:id="@+id/budget">
+                    android:id="@+id/budgetLayout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="11.00 USD"
+                        android:text="budget preference"
                         android:fontFamily="sans_serif_regular"
                         android:textSize="16sp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="72dp"
-                        android:id="@+id/textView"/>
+                        android:id="@+id/budget"/>
 
                     <ImageView
                         android:layout_width="24dp"
@@ -130,27 +130,27 @@
                 <View style="@style/Divider"
                     android:layout_below="@+id/preferenceTitle"/>
                 <View style="@style/Divider"
-                    android:layout_below="@+id/budget"/>
+                    android:layout_below="@+id/budgetLayout"/>
                 <View style="@style/Divider"
-                    android:layout_below="@+id/distance"/>
+                    android:layout_below="@+id/distanceLayout"/>
                 <View style="@style/Divider"
-                    android:layout_below="@+id/location"/>
+                    android:layout_below="@+id/locationLayout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_below="@+id/budget"
-                    android:id="@+id/distance">
+                    android:layout_below="@+id/budgetLayout"
+                    android:id="@+id/distanceLayout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="5 miles"
+                        android:text="distance preference"
                         android:fontFamily="sans_serif_regular"
                         android:textSize="16sp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="72dp"
-                        android:id="@+id/textView2" />
+                        android:id="@+id/distance" />
 
                     <ImageView
                         android:layout_width="24dp"
@@ -166,17 +166,18 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_below="@id/distance"
-                    android:id="@+id/location">
+                    android:layout_below="@+id/distanceLayout"
+                    android:id="@+id/locationLayout">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="San Jose, CA"
+                        android:text="location preference"
                         android:fontFamily="sans_serif_regular"
                         android:textSize="16sp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="72dp" />
+                        android:layout_marginLeft="72dp"
+                        android:id="@+id/location" />
 
                     <ImageView
                         android:layout_width="24dp"

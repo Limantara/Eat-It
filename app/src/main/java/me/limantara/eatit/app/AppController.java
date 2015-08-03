@@ -21,6 +21,9 @@ public class AppController extends Application {
     private ImageLoader mImageLoader;
     LruBitmapCache mLruBitmapCache;
 
+    public static final int DEFAULT_BUDGET_PREFERENCE = 11; // 11 USD
+    public static final int DEFAULT_DISTANCE_PREFERENCE = 5; // 5 miles
+
     private static AppController mInstance;
 
     @Override

@@ -1,6 +1,7 @@
 package me.limantara.eatit.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import me.limantara.eatit.Helper.SQLiteHelper;
 import me.limantara.eatit.Helper.TimeHelper;
 import me.limantara.eatit.Helper.Util;
 import me.limantara.eatit.R;
+import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
 
 public class MainActivity extends AppCompatActivity
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = SQLiteHelper.getInstance(this);
-        checkLimit();
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,18 +52,17 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Set up drawer
-        drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(
-                R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-
-        final FloatingActionButton buttonExplore =
-                (FloatingActionButton) findViewById(R.id.buttonExplore);
+        // Set FAB animation
+        final FloatingActionButton buttonExplore = (FloatingActionButton) findViewById(R.id.buttonExplore);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
         animation.setStartOffset(500);
         buttonExplore.startAnimation(animation);
+
+        setPreferences();
     }
 
     @Override
@@ -189,5 +190,24 @@ public class MainActivity extends AppCompatActivity
             return latestFood.created_at >= current_eat_time;
         else
             return false;
+    }
+
+    /**
+     * Get and display user preferences
+     */
+    private void setPreferences() {
+        SharedPreferences settings = getPreferences(0);
+
+        // Get preferences
+        int budgetPreference = settings.getInt("budget", AppController.DEFAULT_BUDGET_PREFERENCE);
+        int distancePreference = settings.getInt("distance", AppController.DEFAULT_DISTANCE_PREFERENCE);
+
+        // Get text views
+        TextView budget = (TextView) findViewById(R.id.budget);
+        TextView distance = (TextView) findViewById(R.id.distance);
+
+        // Display preferences
+        budget.setText("$ " + budgetPreference + " USD");
+        distance.setText(distancePreference + " miles");
     }
 }
