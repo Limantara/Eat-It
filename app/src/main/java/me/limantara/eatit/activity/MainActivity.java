@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    private TextView prompt;
 
     public final static String VENUE = "me.limantara.eatitorleaveit.VENUE";
     public final static String FOOD = "me.limantara.eatitorleaveit.FOOD";
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = SQLiteHelper.getInstance(this);
+        prompt = (TextView) findViewById(R.id.prompt);
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,6 +64,17 @@ public class MainActivity extends AppCompatActivity
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
         animation.setStartOffset(500);
         buttonExplore.startAnimation(animation);
+
+        boolean maxLimit = checkLimit();
+
+        if(maxLimit) {
+            prompt.setText("Please check back again soon");
+            prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        }
+        else {
+            prompt.setText("What's for " + TimeHelper.getEatTime() + " ?");
+            prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        }
     }
 
     @Override
@@ -130,7 +144,10 @@ public class MainActivity extends AppCompatActivity
      */
     public void callLocu(View view) {
         int radius = 4828; // 3 miles
-        new LocuAPI(this, radius).makeApiCall();
+        boolean maxLimit = checkLimit();
+
+        if( ! maxLimit)
+            new LocuAPI(this, radius).makeApiCall();
     }
 
     /**

@@ -101,7 +101,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"
                                     android:layout_below="@+id/restaurantInfo"
-                                    android:background="@color/black" />
+                                    android:background="@color/card_background" />
 
                                 <TextView
                                     android:id="@+id/foodName"
