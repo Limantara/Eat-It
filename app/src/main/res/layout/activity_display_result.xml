@@ -96,7 +96,7 @@
                                 </RelativeLayout>
 
 
-                                <ImageView
+                                <com.android.volley.toolbox.NetworkImageView
                                     android:id="@+id/imageFood"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"

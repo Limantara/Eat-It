@@ -1,22 +1,19 @@
 package me.limantara.eatit.adapter;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
-import me.limantara.eatit.Helper.VolleyHelper;
 import me.limantara.eatit.R;
+import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
 
 /**
@@ -99,34 +96,21 @@ public class RecentSuggestionAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView foodName;
         public TextView foodDescription;
-        public ImageView foodImage;
+        public NetworkImageView foodImage;
+        ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
         public ViewHolder(View itemView) {
             super(itemView);
             foodName = (TextView) itemView.findViewById(R.id.foodName);
             foodDescription = (TextView) itemView.findViewById(R.id.foodDescription);
-            foodImage = (ImageView) itemView.findViewById(R.id.foodImage);
+            foodImage = (NetworkImageView) itemView.findViewById(R.id.foodImage);
+
+            if(imageLoader == null)
+                imageLoader = AppController.getInstance().getImageLoader();
         }
 
         public void fillImage(String url) {
-            final ImageView img = foodImage;
-            ImageRequest request = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        img.setImageBitmap(bitmap);
-                    }
-                }, 0, 0, null,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println(volleyError);
-                    }
-                }
-            );
-
-            VolleyHelper.getInstance(RecentSuggestionAdapter.rootView.getContext())
-                    .addToRequestObject(request);
+            foodImage.setImageUrl(url, imageLoader);
         }
     }
 }

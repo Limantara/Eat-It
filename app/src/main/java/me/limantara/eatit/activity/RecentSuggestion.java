@@ -1,15 +1,16 @@
 package me.limantara.eatit.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import me.limantara.eatit.Helper.SQLiteHelper;
@@ -47,6 +48,32 @@ public class RecentSuggestion extends AppCompatActivity
         RecyclerView foodList = (RecyclerView) findViewById(R.id.foodList);
         foodList.setLayoutManager(new LinearLayoutManager(this));
         foodList.setAdapter(new RecentSuggestionAdapter(SQLiteHelper.getInstance(this).getAllFoods()));
+    }
+
+    @Override
+    protected void onStop() {
+        System.out.println("onStop is called");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("onDestroy is called");
+        unbindDrawables(findViewById(R.id.RootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
     }
 
     @Override

@@ -19,7 +19,6 @@ public class FeedImageView extends ImageView {
 
     public interface ResponseObserver {
         public void onError();
-
         public void onSuccess();
     }
 

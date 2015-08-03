@@ -1,7 +1,6 @@
 package me.limantara.eatit.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,15 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
 import me.limantara.eatit.Helper.SQLiteHelper;
-import me.limantara.eatit.Helper.VolleyHelper;
 import me.limantara.eatit.R;
+import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
 
 public class DisplayResult extends AppCompatActivity
@@ -138,36 +136,9 @@ public class DisplayResult extends AppCompatActivity
     private void fillImage() {
         images = selectedFood.images;
         final String url = images.get(0);
-        ImageRequest request = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        imageFood.setImageBitmap(bitmap);
 
-                        Intent intent = DisplayResult.this.getIntent();
-                        // save to SQLite if store food is true
-                        if(intent.hasExtra(MainActivity.STORE_FOOD) &&
-                                intent.getExtras().getBoolean(MainActivity.STORE_FOOD)) {
-                            SQLiteHelper dbHelper = SQLiteHelper.getInstance(DisplayResult.this);
-                            dbHelper.createFood(selectedFood, selectedVenue,  url);
-                            dbHelper.createVenue(selectedVenue);
-                            dbHelper.printAll();
-                        }
-                    }
-                }, 0, 0, null,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println(volleyError);
-
-                        if( ! images.isEmpty()) {
-                            DisplayResult.this.images.remove(0);
-                            DisplayResult.this.fillImage();
-                        }
-                    }
-                }
-        );
-
-        VolleyHelper.getInstance(this).addToRequestObject(request);
+        ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+        NetworkImageView imageFood = (NetworkImageView) findViewById(R.id.imageFood);
+        imageFood.setImageUrl(url, imageLoader);
     }
 }
