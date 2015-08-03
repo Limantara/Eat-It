@@ -92,15 +92,30 @@ public class MainActivity extends AppCompatActivity
         Intent intent;
         switch(position) {
             case 0:
-                break;
+                return;
             case 1:
                 intent = new Intent(this, DisplayResult.class);
-                startActivity(intent);
                 break;
             case 2:
-                displayRecentSuggestion();
+                intent = new Intent(this, RecentSuggestion.class);
                 break;
+            case 3:
+                intent = new Intent(this, SetBudget.class);
+                break;
+            case 4:
+                intent = new Intent(this, SetDistance.class);
+                break;
+            case 5:
+                intent = new Intent(this, SetLocation.class);
+                break;
+            case 6:
+                intent = new Intent(this, HelpCenter.class);
+                break;
+            default:
+                return;
         }
+
+        startActivity(intent);
     }
 
     /**
@@ -129,7 +144,8 @@ public class MainActivity extends AppCompatActivity
      * Find another venue if none of the food in this place has
      * a picture on Bing.
      */
-    public void findAnotherVenue() { System.out.println("Find another venue is called");
+    public void findAnotherVenue() {
+        System.out.println("Find another venue is called");
         findFood(venues);
     }
 
@@ -146,14 +162,6 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(FOOD, selectedFood);
         intent.putExtra(STORE_FOOD, storeFood);
 
-        startActivity(intent);
-    }
-
-    /**
-     * Display all recent suggestions
-     */
-    private void displayRecentSuggestion() {
-        Intent intent = new Intent(this, RecentSuggestion.class);
         startActivity(intent);
     }
 

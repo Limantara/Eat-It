@@ -57,4 +57,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_recent_suggestion">RecentSuggestion</string>
+    <string name="title_activity_set_budget">SetBudget</string>
+    <string name="title_activity_set_distance">SetDistance</string>
+    <string name="title_activity_set_location">SetLocation</string>
+    <string name="title_activity_help_center">HelpCenter</string>
 </resources>

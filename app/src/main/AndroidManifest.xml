@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.limantara.eatit" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="me.limantara.eatit.app.AppController"
-        android:largeHeap="true"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/EatItTheme" >
         <activity
             android:name=".activity.MainActivity"
@@ -34,6 +33,22 @@
         <activity
             android:name=".activity.RecentSuggestion"
             android:label="@string/title_activity_recent_suggestion" >
+        </activity>
+        <activity
+            android:name=".activity.SetBudget"
+            android:label="@string/title_activity_set_budget" >
+        </activity>
+        <activity
+            android:name=".activity.SetDistance"
+            android:label="@string/title_activity_set_distance" >
+        </activity>
+        <activity
+            android:name=".activity.SetLocation"
+            android:label="@string/title_activity_set_location" >
+        </activity>
+        <activity
+            android:name=".activity.HelpCenter"
+            android:label="@string/title_activity_help_center" >
         </activity>
     </application>
 
