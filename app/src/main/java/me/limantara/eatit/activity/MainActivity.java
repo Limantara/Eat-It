@@ -61,7 +61,12 @@ public class MainActivity extends AppCompatActivity
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
         animation.setStartOffset(500);
         buttonExplore.startAnimation(animation);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("Main on start is called");
         setPreferences();
     }
 
@@ -203,8 +208,8 @@ public class MainActivity extends AppCompatActivity
     /**
      * Get and display user preferences
      */
-    private void setPreferences() {
-        SharedPreferences settings = getPreferences(0);
+    private void setPreferences() {  System.out.println("Set preferences is called");
+        SharedPreferences settings = getSharedPreferences("me.limantara.eatit", 0);
 
         // Get preferences
         int budgetPreference = settings.getInt("budget", AppController.DEFAULT_BUDGET_PREFERENCE);

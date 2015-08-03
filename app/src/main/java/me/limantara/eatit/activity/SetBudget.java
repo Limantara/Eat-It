@@ -1,26 +1,34 @@
 package me.limantara.eatit.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import me.limantara.eatit.R;
+import me.limantara.eatit.app.AppController;
 
 public class SetBudget extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
+    private static final int MAX_BUDGET = 50;
+    private SeekBar seekBar;
+    private TextView budget_value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_budget);
+        budget_value = (TextView) SetBudget.this.findViewById(R.id.budget_value);
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,6 +44,9 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
         // Set up toolbar title
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[3]);
+
+        // Set up progress bar
+        setUpSeekBar();
     }
 
     @Override
@@ -90,5 +101,35 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
         }
 
         startActivity(intent);
+    }
+
+    private void setUpSeekBar() {
+        final SharedPreferences settings = getSharedPreferences("me.limantara.eatit", 0);
+        final int offset = 7;
+        int budgetPreference = settings.getInt("budget", AppController.DEFAULT_BUDGET_PREFERENCE);
+
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setProgress(budgetPreference - offset);  System.out.println("budget preference: " + budgetPreference);
+        budget_value.setText(String.valueOf(budgetPreference));
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int newBudget = offset + progress;
+                budget_value.setText(String.valueOf(newBudget));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {  System.out.println("stop called");
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("budget", seekBar.getProgress() + offset);
+                editor.apply();
+            }
+        });
     }
 }
