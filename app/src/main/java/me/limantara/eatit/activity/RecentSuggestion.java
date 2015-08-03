@@ -105,14 +105,28 @@ public class RecentSuggestion extends AppCompatActivity
         switch(position) {
             case 0:
                 intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
                 break;
             case 1:
                 intent = new Intent(this, DisplayResult.class);
-                startActivity(intent);
                 break;
             case 2:
+                return;
+            case 3:
+                intent = new Intent(this, SetBudget.class);
                 break;
+            case 4:
+                intent = new Intent(this, SetDistance.class);
+                break;
+            case 5:
+                intent = new Intent(this, SetLocation.class);
+                break;
+            case 6:
+                intent = new Intent(this, HelpCenter.class);
+                break;
+            default:
+                return;
         }
+
+        startActivity(intent);
     }
 }

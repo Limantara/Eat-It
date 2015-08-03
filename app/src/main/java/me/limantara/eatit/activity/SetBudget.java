@@ -20,7 +20,6 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
 
-    private static final int MAX_BUDGET = 50;
     private SeekBar seekBar;
     private TextView budget_value;
 
@@ -28,7 +27,7 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_budget);
-        budget_value = (TextView) SetBudget.this.findViewById(R.id.budget_value);
+        budget_value = (TextView) findViewById(R.id.budget_value);
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

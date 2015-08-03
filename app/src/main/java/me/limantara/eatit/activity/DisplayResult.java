@@ -106,15 +106,29 @@ public class DisplayResult extends AppCompatActivity
         switch(position) {
             case 0:
                 intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
                 break;
             case 1:
-                break;
+                return;
             case 2:
                 intent = new Intent(this, RecentSuggestion.class);
-                startActivity(intent);
                 break;
+            case 3:
+                intent = new Intent(this, SetBudget.class);
+                break;
+            case 4:
+                intent = new Intent(this, SetDistance.class);
+                break;
+            case 5:
+                intent = new Intent(this, SetLocation.class);
+                break;
+            case 6:
+                intent = new Intent(this, HelpCenter.class);
+                break;
+            default:
+                return;
         }
+
+        startActivity(intent);
     }
 
     /**
