@@ -37,10 +37,14 @@ public class DisplayResult extends AppCompatActivity
     private TextView foodDescription;
     private ImageView imageFood;
 
+    private SQLiteHelper dbHelper;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_result);
+        dbHelper = SQLiteHelper.getInstance(this);
 
         // Set up toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,13 +63,12 @@ public class DisplayResult extends AppCompatActivity
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
         toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[1]);
 
-        Intent intent = getIntent();
-        if(intent.hasExtra(MainActivity.VENUE) && intent.hasExtra(MainActivity.FOOD)) {
+        intent = getIntent();
+        if(intent.hasExtra(MainActivity.VENUE) && intent.hasExtra(MainActivity.FOOD)) { System.out.println("loading from intent");
             selectedFood = (Venue.Item) intent.getSerializableExtra(MainActivity.FOOD);
             selectedVenue = (Venue) intent.getSerializableExtra(MainActivity.VENUE);
         }
         else {
-            SQLiteHelper dbHelper = SQLiteHelper.getInstance(this);
             selectedFood = dbHelper.getLatestFood();
             selectedVenue = dbHelper.findVenueFromFood(selectedFood);
         }
@@ -135,10 +138,14 @@ public class DisplayResult extends AppCompatActivity
      */
     private void fillImage() {
         images = selectedFood.images;
-        final String url = images.get(0);
+        String url = images.get(0);
 
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
         NetworkImageView imageFood = (NetworkImageView) findViewById(R.id.imageFood);
         imageFood.setImageUrl(url, imageLoader);
+
+        if(intent.hasExtra(MainActivity.STORE_FOOD) && intent.getBooleanExtra(MainActivity.STORE_FOOD, false)) {
+            dbHelper.createFood(selectedFood, selectedVenue, url);
+        }
     }
 }
