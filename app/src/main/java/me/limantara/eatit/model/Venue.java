@@ -18,6 +18,8 @@ public class Venue implements Serializable {
     public List<Category> categories;
     private String[] excludedKeywords;
     private String displayAddress;
+    private Float latitude;
+    private Float longitude;
 
     public Venue() {
         excludedKeywords = new String[]{ "Drink", "Appetizer", "Dessert",
@@ -27,24 +29,58 @@ public class Venue implements Serializable {
     public Venue(Cursor cursor) {
         locu_id = cursor.getString(0);
         name = cursor.getString(1);
-        displayAddress = cursor.getString(2);
+        displayAddress = cursor.getString(2); System.out.println(location);
+        latitude = cursor.getFloat(3);
+        longitude = cursor.getFloat(4);
     }
 
-    public List<Venue.Item> getFoods() {
+    public void setLatitude(Float lat) {
+        latitude = lat;
+    }
+
+    public void setLongitude(Float lngt) {
+        longitude = lngt;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public List<Venue.Item> getFoods(int budget) {
         List<Venue.Item> items = new ArrayList<>();
 
         for(Venue.Menu menu : menus) {
             for(Venue.Section section : menu.sections) {
                 if(section.section_name != null && isValid(section.section_name)) {
                     for(Venue.Subsection subsection : section.subsections) {
-                        if(subsection.contents != null && isValid(subsection.subsection_name))
-                            items.addAll(subsection.contents);
+                        if(subsection.contents != null && isValid(subsection.subsection_name)) {
+                            for(Item food : subsection.contents) {
+                                if(food.price != null && isNumeric(food.price)) {
+
+                                    double price = Double.parseDouble(food.price);
+                                    int truncatedPrice = (int) price;
+
+                                    if(truncatedPrice < budget)
+                                        items.add(food);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
 
         return items;
+    }
+
+
+    private static boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
     public String getDisplayAddress() {
@@ -62,7 +98,7 @@ public class Venue implements Serializable {
         return displayAddress;
     }
 
-    private boolean isValid(String name) { System.out.println("isValid: " + name + ", excludedKeyword: " + excludedKeywords);
+    private boolean isValid(String name) {
         for(String keyword : excludedKeywords) {
             if(name.contains(keyword))
                 return false;
@@ -84,6 +120,10 @@ public class Venue implements Serializable {
         public static String postal_code;
         public static String country;
         public static GeoJSON geo;
+
+        public String toString() {
+            return "locality: " + locality;
+        }
     }
 
     public static class GeoJSON implements Serializable {
@@ -93,7 +133,7 @@ public class Venue implements Serializable {
 
         public static class Geometry implements Serializable {
             public String type;
-            public List<Integer> coordinates;
+            public List<Float> coordinates;
         }
 
         public static class Property implements Serializable {

@@ -134,7 +134,8 @@
                 <View style="@style/Divider"
                     android:layout_below="@+id/distanceLayout"/>
                 <View style="@style/Divider"
-                    android:layout_below="@+id/locationLayout"/>
+                    android:layout_below="@+id/locationLayout"
+                    android:id="@+id/view" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -172,7 +173,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="location preference"
+                        android:text="resolving location..."
                         android:fontFamily="sans_serif_regular"
                         android:textSize="16sp"
                         android:layout_centerVertical="true"

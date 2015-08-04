@@ -39,6 +39,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      */
     private SQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        SQLiteDatabase db = this.getWritableDatabase();
+        createTables(db);
     }
 
     @Override
@@ -135,6 +137,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put("locu_id", venue.locu_id);
         values.put("name", venue.name);
         values.put("address", venue.getDisplayAddress());
+        values.put("latitude", venue.getLatitude());  System.out.println("Latitude: " + venue.getLatitude());
+        values.put("longitude", venue.getLongitude()); System.out.println("longitude: " + venue.getLongitude());
 
         db.insert("venues", null, values);
         db.close();
@@ -297,7 +301,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         String CREATE_VENUE_TABLE = "CREATE TABLE IF NOT EXISTS venues ( " +
                 "locu_id TEXT, " +
                 "name TEXT, " +
-                "address TEXT );";
+                "address TEXT, " +
+                "latitude FLOAT, " +
+                "longitude FLOAT );";
 
         db.execSQL(CREATE_FOOD_TABLE);
         db.execSQL(CREATE_VENUE_TABLE);

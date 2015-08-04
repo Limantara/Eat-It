@@ -24,7 +24,28 @@ public class AppController extends Application {
     public static final int DEFAULT_BUDGET_PREFERENCE = 11; // 11 USD
     public static final int DEFAULT_DISTANCE_PREFERENCE = 5; // 5 miles
 
+    public static final Float DEFAULT_LATITUDE = new Float(37.3434479);
+    public static final Float DEFAULT_LONGITUDE = new Float(-121.8822139);
     private static AppController mInstance;
+
+    private static Float longitude;
+    private static Float latitude;
+
+    public static void setLatitude(Float lat) {
+        latitude = lat;
+    }
+
+    public static void setLongitude(Float lgt) {
+        longitude = lgt;
+    }
+
+    public static Float getLongitude() {
+        return longitude;
+    }
+
+    public static Float getLatitude() {
+        return latitude;
+    }
 
     @Override
     public void onCreate() {

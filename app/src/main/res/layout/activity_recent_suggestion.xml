@@ -41,8 +41,7 @@
                     android:layout_below="@+id/container_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/card_background"
-                    android:paddingTop="8dp" />
+                    android:background="@color/card_background" />
 
             </RelativeLayout>
 

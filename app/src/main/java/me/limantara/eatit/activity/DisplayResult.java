@@ -1,6 +1,7 @@
 package me.limantara.eatit.activity;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class DisplayResult extends AppCompatActivity
     private List<String> images;
 
     private TextView restaurantName;
+    private TextView restaurantDistance;
     private TextView foodName;
     private TextView foodPrice;
     private TextView foodDescription;
@@ -64,13 +66,18 @@ public class DisplayResult extends AppCompatActivity
         toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[1]);
 
         intent = getIntent();
-        if(intent.hasExtra(MainActivity.VENUE) && intent.hasExtra(MainActivity.FOOD)) { System.out.println("loading from intent");
+
+        if(intent.hasExtra(MainActivity.VENUE) && intent.hasExtra(MainActivity.FOOD)) {
             selectedFood = (Venue.Item) intent.getSerializableExtra(MainActivity.FOOD);
             selectedVenue = (Venue) intent.getSerializableExtra(MainActivity.VENUE);
         }
         else {
             selectedFood = dbHelper.getLatestFood();
-            selectedVenue = dbHelper.findVenueFromFood(selectedFood);
+
+            if(selectedFood != null)
+                selectedVenue = dbHelper.findVenueFromFood(selectedFood);
+            else
+                return;
         }
 
         fillTextViews();
@@ -136,12 +143,14 @@ public class DisplayResult extends AppCompatActivity
      */
     private void fillTextViews() {
         restaurantName = (TextView) findViewById(R.id.restaurantName);
+        restaurantDistance = (TextView) findViewById(R.id.restaurantDistance);
         foodName = (TextView) findViewById(R.id.foodName);
-        foodPrice = (TextView) findViewById(R.id.foodDescription);
+        foodPrice = (TextView) findViewById(R.id.foodPrice);
         foodDescription = (TextView) findViewById(R.id.foodDescription);
         imageFood = (ImageView) findViewById(R.id.imageFood);
 
         restaurantName.setText(selectedVenue.name);
+        restaurantDistance.setText(calculateDistanceTo(selectedVenue));
         foodName.setText(selectedFood.name);
         foodPrice.setText("$ " + selectedFood.price);
         foodDescription.setText(selectedFood.description);
@@ -161,5 +170,26 @@ public class DisplayResult extends AppCompatActivity
         if(intent.hasExtra(MainActivity.STORE_FOOD) && intent.getBooleanExtra(MainActivity.STORE_FOOD, false)) {
             dbHelper.createFood(selectedFood, selectedVenue, url);
         }
+    }
+
+    /**
+     * Helper method to calculate distance to the restaurant.
+     *
+     * @param venue
+     * @return
+     */
+    private String calculateDistanceTo(Venue venue) {
+        Location destination = new Location("");
+        destination.setLatitude(venue.getLatitude());
+        destination.setLongitude(venue.getLongitude());
+
+        Location source = new Location("");
+        source.setLatitude(AppController.getLatitude());
+        source.setLongitude(AppController.getLongitude());
+
+        Float distanceMeter = source.distanceTo(destination);
+        Float distanceMiles = new Float(distanceMeter / 1609.34);
+
+        return String.format("%.2g miles", distanceMiles);
     }
 }

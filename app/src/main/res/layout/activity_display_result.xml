@@ -80,7 +80,7 @@
                                         android:layout_marginStart="72dp"
                                         android:fontFamily="sans_serif_regular"
                                         android:textSize="16sp"
-                                        android:text="Punjab Cafe"
+                                        android:text="restaurant name"
                                         android:textColor="@color/black"
                                         android:layout_marginTop="16dp" />
 
@@ -88,7 +88,7 @@
                                         android:id="@+id/restaurantDistance"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="5 miles"
+                                        android:text="distance"
                                         android:layout_marginLeft="72dp"
                                         android:layout_marginStart="72dp"
                                         android:layout_below="@+id/restaurantName" />
@@ -107,7 +107,7 @@
                                     android:id="@+id/foodName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Spicy Hotate Roll"
+                                    android:text="name"
                                     android:fontFamily="sans_serif_regular"
                                     android:textSize="24sp"
                                     android:layout_marginTop="24dp"
@@ -121,7 +121,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:text="$ 8.00"
+                                    android:text="price"
                                     android:layout_below="@+id/foodName"
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
@@ -133,7 +133,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_below="@+id/foodPrice"
                                     android:layout_height="wrap_content"
-                                    android:text="15 pieces assorted sashimi, 32 pieces California rolls 32 pieces California rolls."
+                                    android:text="description"
                                     android:textColor="@color/black"
                                     android:textSize="14sp"
                                     android:lineSpacingExtra="8sp"
@@ -168,18 +168,6 @@
                                         android:adjustViewBounds="true" />
 
                                 </LinearLayout>
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:id="@+id/imageBing"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/bing"
-                                    android:layout_alignBottom="@+id/imageFood"
-                                    android:layout_alignRight="@+id/foodName"
-                                    android:layout_alignEnd="@+id/foodName"
-                                    android:layout_marginRight="8dp"
-                                    android:layout_marginBottom="8dp" />
 
                             </RelativeLayout>
 
