@@ -50,7 +50,13 @@ public class TimeHelper {
      * @return
      */
     public static Calendar dinner() {
-        return createTodayAt(17, 0, 0, 0); // 5:00PM
+        Calendar dinner = createTodayAt(17, 0, 0, 0); // 5:00PM
+
+        if(now().before(breakfast())) {
+            dinner.add(Calendar.DATE, -1);
+        }
+
+        return dinner;
     }
 
     /**

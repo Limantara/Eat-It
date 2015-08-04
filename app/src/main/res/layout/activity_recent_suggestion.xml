@@ -41,7 +41,18 @@
                     android:layout_below="@+id/container_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/card_background" />
+                    android:background="@color/card_background"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="8dp"
+                    android:text="You don&apos;t have any suggestion yet"
+                    android:id="@+id/emptyText"
+                    android:layout_below="@+id/container_toolbar"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 

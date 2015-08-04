@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements
     private Float longitude = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  System.out.println("on create is called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements
         buttonExplore.startAnimation(animation);
 
         boolean maxLimit = checkLimit();
-
+        System.out.println("Limit: " + maxLimit);
         if(maxLimit) {
             prompt.setText("Check back again for " + TimeHelper.getNextEatTime());
             prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
@@ -468,7 +468,8 @@ public class MainActivity extends AppCompatActivity implements
     private boolean checkLimit() {
         Venue.Item latestFood = dbHelper.getLatestFood();
         Long current_eat_time = TimeHelper.getEatTimeObject().getTimeInMillis();
-
+        System.out.println("Current: " + current_eat_time + ", last: " + latestFood.created_at);
+        System.out.println(latestFood);
         if(latestFood != null)
             return latestFood.created_at >= current_eat_time;
         else

@@ -151,7 +151,8 @@
                                     android:text="Direction"
                                     style="?android:attr/borderlessButtonStyle"
                                     android:textColor="@color/accent"
-                                    android:layout_margin="8dp"/>
+                                    android:layout_margin="8dp"
+                                    android:onClick="launchGoogleMaps" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package me.limantara.eatit.activity;
 
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -222,5 +223,18 @@ public class DisplayResult extends AppCompatActivity
 
         emptyText.setText("You don't have any suggestion yet");
         parent.addView(emptyText);
+    }
+
+    public void launchGoogleMaps(View view) {
+
+        Float sLatitude = AppController.getLatitude();
+        Float sLongitude = AppController.getLongitude();
+        Float dLatitude = selectedVenue.getLatitude();
+        Float dLongitude = selectedVenue.getLongitude();
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse(String.format("http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s", sLatitude, sLongitude, dLatitude, dLongitude)));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        startActivity(intent);
     }
 }

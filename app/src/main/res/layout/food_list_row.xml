@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp">
 
@@ -56,7 +56,8 @@
             android:text="Direction"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/accent"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:onClick="launchGoogleMaps" />
 
     </RelativeLayout>
 

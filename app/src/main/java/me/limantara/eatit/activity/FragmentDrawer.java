@@ -3,7 +3,6 @@ package me.limantara.eatit.activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -88,15 +87,8 @@ public class FragmentDrawer extends Fragment {
                 new ClickListener() {
                     @Override
                     public void onClick(final View view, final int position) {
-
                         mDrawerLayout.closeDrawer(containerView);
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                drawerListener.onDrawerItemSelected(view, position);
-                            }
-                        }, 200);
+                        drawerListener.onDrawerItemSelected(view, position);
                     }
 
                     @Override
