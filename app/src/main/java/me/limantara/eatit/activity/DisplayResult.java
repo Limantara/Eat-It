@@ -5,11 +5,14 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -32,6 +35,7 @@ public class DisplayResult extends AppCompatActivity
     private Venue.Item selectedFood;
     private List<String> images;
 
+    private CardView foodCard;
     private TextView restaurantName;
     private TextView restaurantDistance;
     private TextView foodName;
@@ -74,15 +78,27 @@ public class DisplayResult extends AppCompatActivity
         else {
             selectedFood = dbHelper.getLatestFood();
 
-            if(selectedFood != null)
+            if(selectedFood != null) {
                 selectedVenue = dbHelper.findVenueFromFood(selectedFood);
-            else
+            }
+            else {
+                showEmptyMessage();
                 return;
+            }
         }
 
         fillTextViews();
         fillImage();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(foodCard != null)
+            foodCard.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,5 +207,20 @@ public class DisplayResult extends AppCompatActivity
         Float distanceMiles = new Float(distanceMeter / 1609.34);
 
         return String.format("%.2g miles", distanceMiles);
+    }
+
+    private void showEmptyMessage() {
+        foodCard = (CardView) findViewById(R.id.foodCard);
+        foodCard.setVisibility(View.GONE);
+
+        LinearLayout parent = (LinearLayout) foodCard.getParent();
+        TextView emptyText = new TextView(this);
+
+        // style
+        emptyText.setHeight(72);
+        emptyText.setGravity(Gravity.CENTER);
+
+        emptyText.setText("You don't have any suggestion yet");
+        parent.addView(emptyText);
     }
 }

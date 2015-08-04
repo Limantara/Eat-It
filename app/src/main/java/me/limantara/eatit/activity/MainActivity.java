@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //dbHelper.refresh();
         setContentView(R.layout.activity_main);
+
         dbHelper = SQLiteHelper.getInstance(this);
         prompt = (TextView) findViewById(R.id.prompt);
 
@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-
         stopLocationUpdates();
     }
 
@@ -386,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements
         int radius = getSharedPreferences("me.limantara.eatit", 0).getInt("distance", AppController.DEFAULT_DISTANCE_PREFERENCE);
         boolean maxLimit = checkLimit();
 
-//        if( ! maxLimit)
+        if( ! maxLimit)
             new LocuAPI(this, radius).makeApiCall();
     }
 
