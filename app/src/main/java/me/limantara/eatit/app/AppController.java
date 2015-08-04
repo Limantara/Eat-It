@@ -40,11 +40,11 @@ public class AppController extends Application {
     }
 
     public static Float getLongitude() {
-        return longitude;
+        return longitude == null ? DEFAULT_LONGITUDE : longitude;
     }
 
     public static Float getLatitude() {
-        return latitude;
+        return latitude == null ? DEFAULT_LATITUDE : latitude;
     }
 
     @Override

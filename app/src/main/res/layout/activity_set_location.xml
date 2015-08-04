@@ -52,11 +52,11 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/budget_info"
+                            android:id="@+id/city_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans_serif_thin"
-                            android:text="Budget allowance in USD"
+                            android:text="Your current city is:"
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="24dp"
                             android:layout_marginRight="16sp"
@@ -64,39 +64,29 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:layout_below="@id/budget_info"
-                            android:id="@+id/budget_info_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans_serif_thin"
-                            android:text="Excluding tips and tax"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16sp"
-                            android:layout_marginBottom="16dp"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/budget_value"
-                            android:layout_below="@id/budget_info_desc"
+                            android:id="@+id/city_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans_serif_light"
-                            android:text="3"
+                            android:text="resolving city..."
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16sp"
                             android:layout_marginBottom="16dp"
                             android:textColor="@color/primary"
-                            android:textSize="112sp" />
+                            android:textSize="24sp"
+                            android:layout_below="@id/city_info" />
 
-                        <SeekBar
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="16dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/city_name"
+                            android:layout_marginTop="24dp"
                             android:layout_marginLeft="16dp"
-                            android:layout_marginBottom="24dp"
-                            android:id="@+id/seekBar"
-                            android:layout_below="@+id/budget_value"
-                            android:max="43" />
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:textSize="14sp"
+                            android:text="* If this is not your current city, you might need to configure your location in your device's settings."
+                            android:id="@+id/textView" />
 
                     </RelativeLayout>
 
