@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="We're currently only serving one suggestion per eat time (e.g: breakfast, lunch, and, dinner). \n\nThey're starting at 5:00 AM, 12 noon, and 5:00 PM respectively."
+            android:text="We&apos;re currently only serving one suggestion per eat time (breakfast, lunch, and, dinner). \n\nThey&apos;re starting at 5:00 AM, 12 noon, and 5:00 PM respectively."
             android:layout_below="@+id/textView2"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"

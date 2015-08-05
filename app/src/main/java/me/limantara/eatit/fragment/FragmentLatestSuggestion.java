@@ -4,6 +4,8 @@ package me.limantara.eatit.fragment;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,24 +18,36 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+
 import java.util.List;
 
+import me.limantara.eatit.API.BingAPI;
+import me.limantara.eatit.API.BingAPI.BingListener;
 import me.limantara.eatit.API.LocuAPI;
 import me.limantara.eatit.API.LocuAPI.LocuListener;
+import me.limantara.eatit.Helper.Util;
 import me.limantara.eatit.R;
 import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
+import me.limantara.eatit.view.CustomNetworkImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentLatestSuggestion extends Fragment
-    implements LocuListener {
+    implements LocuListener, BingListener {
 
     private AppController app = AppController.getInstance();
+    private Venue selectedVenue;
+
+    private static final String DOWNLOADING_IMAGE = "Downloading image...";
+    private static final Double ONE_MILE_IN_METER = 1609.34;
 
     private ImageView loadingIcon;
-    private ImageView imageFood;
+    private CustomNetworkImageView imageFood;
     private TextView foodName;
     private TextView foodPrice;
     private TextView foodDescription;
@@ -58,40 +72,63 @@ public class FragmentLatestSuggestion extends Fragment
 
         View root = inflater.inflate(R.layout.fragment_latest_suggestion, container, false);
         loadingIcon = (ImageView) root.findViewById(R.id.loadingIcon);
-        imageFood = (ImageView) root.findViewById(R.id.imageFood);
+        imageFood = (CustomNetworkImageView) root.findViewById(R.id.imageFood);
         foodName = (TextView) root.findViewById(R.id.foodName);
         foodPrice = (TextView) root.findViewById(R.id.foodPrice);
         foodDescription = (TextView) root.findViewById(R.id.foodDescription);
         restaurantName = (TextView) root.findViewById(R.id.restaurantName);
         restaurantDistance = (TextView) root.findViewById(R.id.restaurantDistance);
         direction = (Button) root.findViewById(R.id.direction);
+        animateLoading();
+        hideFoodInfo();
 
         return root;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        animateLoading();
-        hideFoodInfo();
-    }
-
-
-    @Override
     public void onLocuResponse(List<Venue> venueList) {
-        animateFinishing(loadingIcon);
-
-        fillFoodInfo();
-        showFoodInfo();
-
-        restaurantName.setText(venueList.get(0).name);
-        restaurantDistance.setText("3 miles");
+        selectedVenue = pickAndRemoveAVenue(venueList);
+        restaurantName.setText(DOWNLOADING_IMAGE);
+        new BingAPI(this, selectedVenue.getFoods(app.getPreferredBudget())).makeApiCall();
     }
 
     @Override
     public void onLocuErrorResponse() {
         loadingIcon.clearAnimation();
         System.out.println("Error Locu");
+    }
+
+    @Override
+    public void onBingResponse(Venue.Item food) {
+        fillFoodInfo(food);
+    }
+
+    @Override
+    public void onBingErrorResponse() {
+
+    }
+
+    /**
+     * Get a random venue and remove it from the list.
+     *
+     * @return
+     */
+    private Venue pickAndRemoveAVenue(List<Venue> venueList) {
+        Venue venue = null;
+        int budget = app.getPreferredBudget();
+
+        while( ! venueList.isEmpty()) {
+            int i = Util.getRandomNumber(0, venueList.size());
+            venue = venueList.get(i);
+            venueList.remove(i);
+
+            if( ! venue.getFoods(budget).isEmpty()) {
+                System.out.println("foods: " + venue.getFoods(budget));
+                break;
+            }
+        }
+
+        return venue;
     }
 
     /**
@@ -142,17 +179,74 @@ public class FragmentLatestSuggestion extends Fragment
         direction.setVisibility(View.GONE);
     }
 
-    private void fillFoodInfo() {
-        foodName.setText("FoodName");
-        foodPrice.setText("FoodPrice");
-        foodDescription.setText("FoodDescription");
+    private void fillFoodInfo(Venue.Item food) {
+        foodName.setText(food.name);
+        foodPrice.setText("$ " + food.price);
+        foodDescription.setText(food.description);
+        fillImage(food);
+        showFoodInfo();
     }
 
+    private void fillRestaurantInfo() {
+        restaurantName.setText(selectedVenue.name);
+        restaurantDistance.setText(calculateDistanceTo(selectedVenue));
+    }
+
+    /**
+     * Helper method to populate food's image
+     */
+    private void fillImage(Venue.Item food) {
+        String url = food.images.get(0);
+
+        ImageRequest imageRequest = new ImageRequest(url,
+            new Response.Listener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    imageFood.setLocalImageBitmap(response);
+                    animateFinishing(loadingIcon);
+                    fillRestaurantInfo();
+                }
+            }, 0, 0, null,
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println("Error image");
+                }
+            }
+        );
+
+        app.addToRequestQueue(imageRequest);
+    }
+
+    /**
+     * Helper method to set food info to visible
+     */
     private void showFoodInfo() {
         imageFood.setVisibility(View.VISIBLE);
         foodName.setVisibility(View.VISIBLE);
         foodPrice.setVisibility(View.VISIBLE);
         foodDescription.setVisibility(View.VISIBLE);
         direction.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Helper method to calculate distance to the restaurant.
+     *
+     * @param venue
+     * @return
+     */
+    private String calculateDistanceTo(Venue venue) {
+        Location destination = new Location("");
+        destination.setLatitude(venue.getLatitude());
+        destination.setLongitude(venue.getLongitude());
+
+        Location source = new Location("");
+        source.setLatitude(AppController.getInstance().getLatitude());
+        source.setLongitude(AppController.getInstance().getLongitude());
+
+        Float distanceMeter = source.distanceTo(destination);
+        Float distanceMiles = new Float(distanceMeter / ONE_MILE_IN_METER);
+
+        return String.format("%.2g miles", distanceMiles);
     }
 }

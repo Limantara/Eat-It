@@ -23,21 +23,28 @@ import java.util.Map;
 import me.limantara.eatit.Helper.Util;
 import me.limantara.eatit.Helper.VolleyHelper;
 import me.limantara.eatit.R;
-import me.limantara.eatit.activity.MainActivity;
+import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
 
 /**
  * Created by edwinlimantara on 8/1/15.
  */
 public class BingAPI implements Response.Listener<String>, Response.ErrorListener {
-    private MainActivity mainActivity;
+    private AppController app = AppController.getInstance();
     private List<Venue.Item> foods;
     Venue.Item selectedFood;
     private static String BingURL = "https://api.datamarket.azure.com/Bing/Search/Image?";
 
-    public BingAPI(MainActivity activity, List<Venue.Item> foods) {
-        mainActivity = activity;
+    private BingListener bingListener;
+
+    public static interface BingListener {
+        public void onBingResponse(Venue.Item food);
+        public void onBingErrorResponse();
+    }
+
+    public BingAPI(BingListener listener, List<Venue.Item> foods) {
         this.foods = foods;
+        bingListener = listener;
     }
 
     /**
@@ -62,10 +69,10 @@ public class BingAPI implements Response.Listener<String>, Response.ErrorListene
                 }
             };
 
-            VolleyHelper.getInstance(mainActivity).addToRequestObject(request);
+            VolleyHelper.getInstance(app).addToRequestObject(request);
         }
-        else { System.out.println("Calling findAnotherVenue from BingAPI");
-            mainActivity.findAnotherVenue();
+        else {
+            bingListener.onBingErrorResponse();
         }
     }
 
@@ -87,10 +94,10 @@ public class BingAPI implements Response.Listener<String>, Response.ErrorListene
         // If Bing has the food pictures
         if(images.size() > 0) {
             selectedFood.images = images;
-            mainActivity.displayResult(selectedFood, true);
+            bingListener.onBingResponse(selectedFood);
         }
         else {
-            mainActivity.findAnotherVenue();
+            bingListener.onBingErrorResponse();
         }
     }
 
@@ -138,7 +145,7 @@ public class BingAPI implements Response.Listener<String>, Response.ErrorListene
      */
     private Map<String, String> fillHeaders() {
         Map<String, String> headers = new HashMap<>();
-        String bing_primary_key = mainActivity.getString(R.string.bing_primary_key);
+        String bing_primary_key = app.getString(R.string.bing_primary_key);
 
         String credentials = String.format("%s:%s", "", bing_primary_key);
         String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);

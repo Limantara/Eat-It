@@ -70,7 +70,7 @@
                     </RelativeLayout>
 
 
-                    <com.android.volley.toolbox.NetworkImageView
+                    <me.limantara.eatit.view.CustomNetworkImageView
                         android:id="@+id/imageFood"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"

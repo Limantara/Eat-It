@@ -180,6 +180,17 @@ public class AppController extends Application
     }
 
     /**
+     * Helper method to set the preferred distance
+     *
+     * @param newDistance
+     */
+    public void setPreferredDistance(int newDistance) {
+        SharedPreferences.Editor editor = getPreferences().edit();
+        editor.putInt(DISTANCE_PREFERENCE, newDistance);
+        editor.apply();
+    }
+
+    /**
      * Helper method to get the preferred budget
      *
      * @return

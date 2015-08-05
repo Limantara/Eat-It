@@ -209,10 +209,6 @@ public class DisplayResult extends AppCompatActivity
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
         NetworkImageView imageFood = (NetworkImageView) findViewById(R.id.imageFood);
         imageFood.setImageUrl(url, imageLoader);
-
-//        if(intent.hasExtra(MainActivity.STORE_FOOD) && intent.getBooleanExtra(MainActivity.STORE_FOOD, false)) {
-//            dbHelper.createFood(selectedFood, selectedVenue, url);
-//        }
     }
 
     /**

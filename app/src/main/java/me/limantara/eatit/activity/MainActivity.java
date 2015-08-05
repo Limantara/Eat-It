@@ -446,29 +446,6 @@ public class MainActivity extends AppCompatActivity
     }
 //
 //    /**
-//     * Get a random venue and remove it from the list.
-//     *
-//     * @return
-//     */
-//    private Venue pickAVenue() {
-//        Venue venue = null;
-//        int budget = getSharedPreferences("me.limantara.eatit", 0).getInt("budget", AppController.DEFAULT_BUDGET_PREFERENCE);
-//
-//        while( ! venues.isEmpty()) {
-//            int i = Util.getRandomNumber(0, venues.size());
-//            venue = venues.get(i);
-//            venues.remove(i);
-//
-//            if( ! venue.getFoods(budget).isEmpty()) {
-//                System.out.println("foods: " + venue.getFoods(budget));
-//                break;
-//            }
-//        }
-//
-//        return venue;
-//    }
-//
-//    /**
 //     * Check if the limit (one suggestion per eat time) has been reached
 //     *
 //     * @return
