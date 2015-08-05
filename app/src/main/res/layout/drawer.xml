@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <RelativeLayout
-        android:id="@+id/nav_header_container"
+        android:id="@+id/drawer_header"
         android:layout_width="match_parent"
         android:layout_height="104dp"
         android:layout_alignParentTop="true"
@@ -61,14 +61,16 @@
                     android:layout_alignStart="@+id/appName" />
 
             </RelativeLayout>
+
         </RelativeLayout>
+
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/drawerList"
+        android:id="@+id/drawer_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nav_header_container">
+        android:layout_below="@id/drawer_header">
     </android.support.v7.widget.RecyclerView>
 
 

@@ -1,0 +1,98 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar_container"
+    tools:context="me.limantara.eatit.fragment.FragmentHelpCenter">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Limitation"
+            android:id="@+id/textView2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/limitationInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="We're currently only serving one suggestion per eat time (e.g: breakfast, lunch, and, dinner). \n\nThey're starting at 5:00 AM, 12 noon, and 5:00 PM respectively."
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentStart="true" />
+
+        <View style="@style/Divider"
+            android:id="@+id/divider1"
+            android:layout_below="@+id/limitationInfo"/>
+
+        <TextView
+            android:id="@+id/accuracyTitle"
+            android:layout_below="@+id/divider1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Accuracy"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/accuracyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="We solely rely on Locu's API (locu.com) to provide food information from nearby restaurants. \n\nEach food picture is taken from the first image that appears in Bing image search, using the food name as the query."
+            android:layout_below="@+id/accuracyTitle"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentStart="true" />
+
+        <View style="@style/Divider"
+            android:id="@+id/divider2"
+            android:layout_below="@+id/accuracyInfo"/>
+
+        <TextView
+            android:id="@+id/attributionTitle"
+            android:layout_below="@+id/divider2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Attribution"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/attributionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="As mentioned before, all the data and information presented in this application are courtesy of Locu and Bing."
+            android:layout_below="@+id/attributionTitle"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentStart="true" />
+
+        <View style="@style/Divider"
+            android:id="@+id/divider3"
+            android:layout_below="@+id/attributionInfo"/>
+
+    </RelativeLayout>
+</ScrollView>

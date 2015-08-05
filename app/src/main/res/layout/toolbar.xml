@@ -11,13 +11,13 @@
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <TextView
+        android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-regular"
         android:textSize="16sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_gravity="center"
-        android:id="@+id/toolbarTitle" />
+        android:layout_gravity="center" />
 
 </android.support.v7.widget.Toolbar>

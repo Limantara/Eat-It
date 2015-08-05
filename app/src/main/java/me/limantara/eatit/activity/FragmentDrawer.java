@@ -3,7 +3,6 @@ package me.limantara.eatit.activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,9 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,20 +61,15 @@ public class FragmentDrawer extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
-
-        // drawer icons
         icons = getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.drawer, container, false);
 
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.drawer_navigation);
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 
         recyclerView.setAdapter(adapter);
@@ -112,13 +103,13 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
 
-                FloatingActionButton buttonExplore =
-                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
-                Animation animation =
-                        AnimationUtils.loadAnimation(getActivity(), R.anim.simple_shrink);
-
-                if(buttonExplore != null)
-                    buttonExplore.startAnimation(animation);
+//                FloatingActionButton buttonExplore =
+//                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
+//                Animation animation =
+//                        AnimationUtils.loadAnimation(getActivity(), R.anim.simple_shrink);
+//
+//                if(buttonExplore != null)
+//                    buttonExplore.startAnimation(animation);
             }
 
             @Override
@@ -126,25 +117,25 @@ public class FragmentDrawer extends Fragment {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
 
-                FloatingActionButton buttonExplore =
-                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
-                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_grow);
-
-                if(buttonExplore != null)
-                    buttonExplore.startAnimation(animation);
+//                FloatingActionButton buttonExplore =
+//                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
+//                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_grow);
+//
+//                if(buttonExplore != null)
+//                    buttonExplore.startAnimation(animation);
             }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                LinearLayout promptBackground =
-                        (LinearLayout) getActivity().findViewById(R.id.promptBackground);
-                float opacity = 1 - slideOffset / 2;
-
-                toolbar.setAlpha(opacity);
-
-                if(promptBackground != null)
-                    promptBackground.setAlpha(opacity);
+//                LinearLayout promptBackground =
+//                        (LinearLayout) getActivity().findViewById(R.id.promptBackground);
+//                float opacity = 1 - slideOffset / 2;
+//
+//                toolbar.setAlpha(opacity);
+//
+//                if(promptBackground != null)
+//                    promptBackground.setAlpha(opacity);
             }
         };
 
@@ -159,16 +150,18 @@ public class FragmentDrawer extends Fragment {
 
     public static interface ClickListener {
         public void onClick(View view, int position);
-
         public void onLongClick(View view, int position);
+    }
+
+    public interface FragmentDrawerListener {
+        public void onDrawerItemSelected(View view, int position);
     }
 
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
         private GestureDetector gestureDetector;
         private ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView,
-                                     final ClickListener clickListener) {
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
             this.clickListener = clickListener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
@@ -198,9 +191,5 @@ public class FragmentDrawer extends Fragment {
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         }
-    }
-
-    public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
     }
 }

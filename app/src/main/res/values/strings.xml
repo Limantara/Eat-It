@@ -61,4 +61,7 @@
     <string name="title_activity_set_distance">SetDistance</string>
     <string name="title_activity_set_location">SetLocation</string>
     <string name="title_activity_help_center">HelpCenter</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

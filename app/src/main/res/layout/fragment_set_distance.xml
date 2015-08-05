@@ -1,0 +1,69 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar_container"
+    tools:context="me.limantara.eatit.fragment.FragmentSetDistance">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/distance_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans_serif_thin"
+                android:text="Approximate distance"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16sp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_below="@id/distance_info"
+                android:id="@+id/distance_info_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans_serif_thin"
+                android:text="Distance is calculated in miles"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16sp"
+                android:layout_marginBottom="16dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/distance_value"
+                android:layout_below="@id/distance_info_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans_serif_light"
+                android:text="3"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16sp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/primary"
+                android:textSize="112sp" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="24dp"
+                android:id="@+id/seekBar"
+                android:layout_below="@+id/distance_value"
+                android:max="19" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

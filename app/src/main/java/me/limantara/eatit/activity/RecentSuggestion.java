@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,6 +57,10 @@ public class RecentSuggestion extends AppCompatActivity
         toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[2]);
 
         foodList = (RecyclerView) findViewById(R.id.foodList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        foodList.setLayoutManager(layoutManager);
+
         foods = dbHelper.getAllFoods();
 
         if(foods.isEmpty()) {
@@ -79,20 +84,22 @@ public class RecentSuggestion extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("onDestroy is called");
         unbindDrawables(findViewById(R.id.RootView));
         System.gc();
     }
 
     private void unbindDrawables(View view) {
-        if (view.getBackground() != null) {
+        if (view.getBackground() != null)
             view.getBackground().setCallback(null);
-        }
+
         if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for (int i = 0; i < viewGroup.getChildCount(); i++)
+                unbindDrawables(viewGroup.getChildAt(i));
+
+            if (!(view instanceof AdapterView) && !(view instanceof RecyclerView))
+                viewGroup.removeAllViews();
         }
     }
 
@@ -148,6 +155,7 @@ public class RecentSuggestion extends AppCompatActivity
         }
 
         startActivity(intent);
+        finish();
     }
 
     public void launchGoogleMaps(View view) {

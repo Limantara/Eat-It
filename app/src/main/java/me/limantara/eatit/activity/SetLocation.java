@@ -6,10 +6,13 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -36,6 +39,10 @@ public class SetLocation extends AppCompatActivity implements FragmentDrawer.Fra
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // Set up toolbar title
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbarTitle);
+        toolbarTitle.setText(getResources().getStringArray(R.array.nav_drawer_labels)[5]);
+
         // Set up drawer
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
@@ -53,6 +60,28 @@ public class SetLocation extends AppCompatActivity implements FragmentDrawer.Fra
         }
         catch(IOException e) {
             cityName.setText("Unknown location");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindDrawables(findViewById(R.id.RootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null)
+            view.getBackground().setCallback(null);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for (int i = 0; i < viewGroup.getChildCount(); i++)
+                unbindDrawables(viewGroup.getChildAt(i));
+
+            if (!(view instanceof AdapterView) && !(view instanceof RecyclerView))
+                viewGroup.removeAllViews();
         }
     }
 
@@ -84,6 +113,7 @@ public class SetLocation extends AppCompatActivity implements FragmentDrawer.Fra
         switch(position) {
             case 0:
                 intent = new Intent(this, MainActivity.class);
+                break;
             case 1:
                 intent = new Intent(this, DisplayResult.class);
                 break;
@@ -106,5 +136,6 @@ public class SetLocation extends AppCompatActivity implements FragmentDrawer.Fra
         }
 
         startActivity(intent);
+        finish();
     }
 }

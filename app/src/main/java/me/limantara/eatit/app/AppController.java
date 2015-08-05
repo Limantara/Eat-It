@@ -8,12 +8,21 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import me.limantara.eatit.R;
 import me.limantara.eatit.volley.LruBitmapCache;
 
 /**
  * Created by edwinlimantara on 8/1/15.
  */
 public class AppController extends Application {
+
+    public static final int HOME = 0;
+    public static final int LATEST_SUGGESTION = 1;
+    public static final int RECENT_SUGGESTIONS = 2;
+    public static final int SET_BUDGET = 3;
+    public static final int SET_DISTANCE = 4;
+    public static final int SET_LOCATION = 5;
+    public static final int HELP_CENTER = 6;
 
     public static final String TAG = AppController.class.getSimpleName();
 
@@ -51,6 +60,17 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+    }
+
+    /**
+     * Helper method to get menu at a random position.
+     *
+     * @param pos
+     * @return
+     */
+    public String getTextMenu(int pos) {
+        String[] menu = getResources().getStringArray(R.array.nav_drawer_labels);
+        return menu[pos];
     }
 
     public static synchronized AppController getInstance() {

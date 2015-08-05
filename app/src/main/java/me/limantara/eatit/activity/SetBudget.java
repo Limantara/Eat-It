@@ -5,10 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -46,6 +49,28 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
 
         // Set up progress bar
         setUpSeekBar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindDrawables(findViewById(R.id.RootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null)
+            view.getBackground().setCallback(null);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for (int i = 0; i < viewGroup.getChildCount(); i++)
+                unbindDrawables(viewGroup.getChildAt(i));
+
+            if (!(view instanceof AdapterView) && !(view instanceof RecyclerView))
+                viewGroup.removeAllViews();
+        }
     }
 
     @Override
@@ -100,6 +125,7 @@ public class SetBudget extends AppCompatActivity implements FragmentDrawer.Fragm
         }
 
         startActivity(intent);
+        finish();
     }
 
     private void setUpSeekBar() {
