@@ -180,6 +180,26 @@ public class AppController extends Application
     }
 
     /**
+     * Helper method to get the preferred budget
+     *
+     * @return
+     */
+    public int getPreferredBudget() {
+        return getPreferences().getInt(BUDGET_PREFERENCE, DEFAULT_BUDGET_PREFERENCE);
+    }
+
+    /**
+     * Helper method to set the preferred budget
+     *
+     * @param newBudget
+     */
+    public void setPreferredBudget(int newBudget) {
+        SharedPreferences.Editor editor = getPreferences().edit();
+        editor.putInt(BUDGET_PREFERENCE, newBudget);
+        editor.apply();
+    }
+
+    /**
      * Helper method to save location information and get address asynchronously
      */
     private void saveLocationInformation(Location lastLocation) {
