@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans_serif_thin"
-                    android:text="Your current city is:"
+                    android:text="Your current address is:"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="16dp"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans_serif_light"
-                    android:text="resolving city..."
+                    android:text="resolving address..."
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginRight="16sp"
@@ -58,7 +58,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:textSize="14sp"
-                    android:text="* If this is not your current city, you might need to configure your location in your device's settings."
+                    android:text="* If this is far from where you are, you might need to configure your location in your device&apos;s settings."
                     android:id="@+id/textView" />
 
             </RelativeLayout>
