@@ -39,9 +39,10 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="16dp"
                             android:src="@drawable/ic_action_explore"
-                            android:tint="@color/accent"
+                            android:tint="@color/divider"
                             android:layout_marginTop="16dp"
-                            android:layout_marginBottom="16dp" />
+                            android:layout_marginBottom="16dp"
+                            android:id="@+id/loadingIcon" />
 
                         <TextView
                             android:id="@+id/restaurantName"
@@ -51,7 +52,7 @@
                             android:layout_marginStart="72dp"
                             android:fontFamily="sans_serif_regular"
                             android:textSize="16sp"
-                            android:text="restaurant name"
+                            android:text="Finding restaurant..."
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:layout_marginRight="16dp"
@@ -62,7 +63,6 @@
                             android:id="@+id/restaurantDistance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="distance"
                             android:layout_marginLeft="72dp"
                             android:layout_marginStart="72dp"
                             android:layout_below="@+id/restaurantName" />
@@ -81,7 +81,6 @@
                         android:id="@+id/foodName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="name"
                         android:fontFamily="sans_serif_regular"
                         android:textSize="24sp"
                         android:layout_marginTop="24dp"
@@ -95,7 +94,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="price"
                         android:layout_below="@+id/foodName"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
@@ -107,7 +105,6 @@
                         android:layout_width="match_parent"
                         android:layout_below="@+id/foodPrice"
                         android:layout_height="wrap_content"
-                        android:text="description"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:lineSpacingExtra="8sp"
@@ -121,11 +118,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/foodDescription"
-                        android:text="Direction"
                         style="?android:attr/borderlessButtonStyle"
                         android:textColor="@color/accent"
                         android:layout_margin="8dp"
-                        android:onClick="launchGoogleMaps" />
+                        android:onClick="launchGoogleMaps"
+                        android:text="DIRECTION" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -140,7 +137,7 @@
                             android:layout_height="24dp"
                             android:layout_gravity="center"
                             android:src="@drawable/locu"
-                            android:adjustViewBounds="true" />
+                            android:adjustViewBounds="true"/>
 
                     </LinearLayout>
 

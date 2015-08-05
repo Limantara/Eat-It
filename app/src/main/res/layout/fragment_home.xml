@@ -48,7 +48,7 @@
             app:fabSize="normal"
             app:layout_anchor="@id/promptBackground"
             app:layout_anchorGravity="bottom|right|end"
-            android:onClick=""
+            android:onClick="requestSuggestion"
             android:nestedScrollingEnabled="true" />
 
     </android.support.design.widget.CoordinatorLayout>
@@ -148,12 +148,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="resolving location..."
                 android:fontFamily="sans_serif_regular"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="72dp"
-                android:id="@+id/location" />
+                android:id="@+id/location"
+                android:text="Connecting..." />
 
             <ImageView
                 android:layout_width="24dp"

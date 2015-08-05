@@ -163,8 +163,8 @@ public class RecentSuggestion extends AppCompatActivity
         Venue.Item food = foods.get(pos);
         Venue venue = dbHelper.findVenueFromFood(food);
 
-        Float sLatitude = AppController.getLatitude();
-        Float sLongitude = AppController.getLongitude();
+        Float sLatitude = AppController.getInstance().getLatitude();
+        Float sLongitude = AppController.getInstance().getLongitude();
         Float dLatitude = venue.getLatitude();
         Float dLongitude = venue.getLongitude();
 

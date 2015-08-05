@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.limantara.eatit.Helper.VolleyHelper;
 import me.limantara.eatit.R;
-import me.limantara.eatit.activity.MainActivity;
 import me.limantara.eatit.app.AppController;
 import me.limantara.eatit.model.Venue;
 
@@ -27,17 +25,24 @@ import me.limantara.eatit.model.Venue;
  */
 public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorListener {
 
+    private AppController app = AppController.getInstance();
     private JsonObjectRequest postRequest;
-    private MainActivity mainActivity;
     private int radius;
     private Float latitude;
     private Float longitude;
+    private LocuListener locuListener;
 
-    public LocuAPI(MainActivity activity, int rMiles) {
-        mainActivity = activity;
+    public static interface LocuListener {
+        public void onLocuResponse(List<Venue> venueList);
+        public void onLocuErrorResponse();
+    }
+
+    public LocuAPI(LocuListener listener, int rMiles) {
+        locuListener = listener;
+
         radius = rMiles * 1609;
-        latitude = AppController.getLatitude();
-        longitude = AppController.getLongitude();
+        latitude = AppController.getInstance().getLatitude();
+        longitude = AppController.getInstance().getLongitude();
     }
 
     /**
@@ -48,11 +53,8 @@ public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorLis
 
         try {
             JSONObject requestParams = fillParams();
-
-            postRequest = new JsonObjectRequest(Request.Method.POST, LocuURL,
-                    requestParams, LocuAPI.this, LocuAPI.this);
-
-            VolleyHelper.getInstance(mainActivity).addToRequestObject(postRequest);
+            postRequest = new JsonObjectRequest(Request.Method.POST, LocuURL, requestParams, LocuAPI.this, LocuAPI.this);
+            app.addToRequestQueue(postRequest);
         }
         catch(JSONException e) {
             System.out.println(e);
@@ -70,9 +72,7 @@ public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorLis
         try {
             List<Venue> venueList = new ArrayList<>();
             JSONArray venues = jsonObject.getJSONArray("venues");
-
-            System.out.println("Locu response: " + jsonObject.toString());
-
+            System.out.println("Locu responded");
             for(int i = 0; i < venues.length(); i++) {
                 JSONObject venueJSON = venues.getJSONObject(i);
                 JsonObject googleJSON =
@@ -90,7 +90,7 @@ public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorLis
                 venueList.add(venue);
             }
 
-            mainActivity.findFood(venueList);
+            locuListener.onLocuResponse(venueList);
         }
         catch(JSONException e) {
             System.out.println(e);
@@ -115,7 +115,7 @@ public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorLis
      */
     private JSONObject fillParams() throws JSONException {
         JSONObject params = new JSONObject();
-        String api_key = mainActivity.getString(R.string.locu_api_key);
+        String api_key = app.getString(R.string.locu_api_key);
 
         String[] fields = {"locu_id", "name", "location", "menus", "categories"};
         JSONObject[] venue_queries = { getVenueQueries() };
@@ -123,7 +123,6 @@ public class LocuAPI implements Response.Listener<JSONObject>, Response.ErrorLis
         params.put("api_key", api_key);
         params.put("fields", new JSONArray(Arrays.asList(fields)));
         params.put("venue_queries", new JSONArray(Arrays.asList(venue_queries)));
-
         return params;
     }
 

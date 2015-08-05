@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="As mentioned before, all the data and information presented in this application are courtesy of Locu and Bing."
+            android:text="All data and information presented in this application are courtesy of Locu and Bing."
             android:layout_below="@+id/attributionTitle"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"

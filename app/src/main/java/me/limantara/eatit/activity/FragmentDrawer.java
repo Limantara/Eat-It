@@ -39,32 +39,6 @@ public class FragmentDrawer extends Fragment {
 
     }
 
-    public void setDrawerListener(FragmentDrawerListener listener) {
-        this.drawerListener = listener;
-    }
-
-    public static List<NavDrawerItem> getData() {
-        List<NavDrawerItem> data = new ArrayList<>();
-
-        // preparing navigation drawer items
-        for (int i = 0; i < titles.length; i++) {
-            NavDrawerItem navItem = new NavDrawerItem();
-            navItem.setTitle(titles[i]);
-            navItem.setIcon(icons.getResourceId(i, -1));
-            data.add(navItem);
-        }
-
-        return data;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
-        icons = getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.drawer, container, false);
@@ -75,23 +49,30 @@ public class FragmentDrawer extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView,
-                new ClickListener() {
-                    @Override
-                    public void onClick(final View view, final int position) {
-                        mDrawerLayout.closeDrawer(containerView);
-                        drawerListener.onDrawerItemSelected(view, position);
-                    }
+            new ClickListener() {
+                @Override
+                public void onClick(final View view, final int position) {
+                    mDrawerLayout.closeDrawer(containerView);
+                    drawerListener.onDrawerItemSelected(view, position);
+                }
 
-                    @Override
-                    public void onLongClick(View view, int position) {
+                @Override
+                public void onLongClick(View view, int position) {
 
-                    }
-                })
+                }
+            })
         );
 
         return layout;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        icons = getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
+    }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);
@@ -102,40 +83,17 @@ public class FragmentDrawer extends Fragment {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
-
-//                FloatingActionButton buttonExplore =
-//                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
-//                Animation animation =
-//                        AnimationUtils.loadAnimation(getActivity(), R.anim.simple_shrink);
-//
-//                if(buttonExplore != null)
-//                    buttonExplore.startAnimation(animation);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-
-//                FloatingActionButton buttonExplore =
-//                        (FloatingActionButton) getActivity().findViewById(R.id.buttonExplore);
-//                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_grow);
-//
-//                if(buttonExplore != null)
-//                    buttonExplore.startAnimation(animation);
             }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-//                LinearLayout promptBackground =
-//                        (LinearLayout) getActivity().findViewById(R.id.promptBackground);
-//                float opacity = 1 - slideOffset / 2;
-//
-//                toolbar.setAlpha(opacity);
-//
-//                if(promptBackground != null)
-//                    promptBackground.setAlpha(opacity);
             }
         };
 
@@ -191,5 +149,23 @@ public class FragmentDrawer extends Fragment {
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         }
+    }
+
+    public void setDrawerListener(FragmentDrawerListener listener) {
+        this.drawerListener = listener;
+    }
+
+    public static List<NavDrawerItem> getData() {
+        List<NavDrawerItem> data = new ArrayList<>();
+
+        // preparing navigation drawer items
+        for (int i = 0; i < titles.length; i++) {
+            NavDrawerItem navItem = new NavDrawerItem();
+            navItem.setTitle(titles[i]);
+            navItem.setIcon(icons.getResourceId(i, -1));
+            data.add(navItem);
+        }
+
+        return data;
     }
 }

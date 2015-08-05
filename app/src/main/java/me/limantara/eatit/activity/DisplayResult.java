@@ -227,8 +227,8 @@ public class DisplayResult extends AppCompatActivity
         destination.setLongitude(venue.getLongitude());
 
         Location source = new Location("");
-        source.setLatitude(AppController.getLatitude());
-        source.setLongitude(AppController.getLongitude());
+        source.setLatitude(AppController.getInstance().getLatitude());
+        source.setLongitude(AppController.getInstance().getLongitude());
 
         Float distanceMeter = source.distanceTo(destination);
         Float distanceMiles = new Float(distanceMeter / 1609.34);
@@ -253,8 +253,8 @@ public class DisplayResult extends AppCompatActivity
 
     public void launchGoogleMaps(View view) {
 
-        Float sLatitude = AppController.getLatitude();
-        Float sLongitude = AppController.getLongitude();
+        Float sLatitude = AppController.getInstance().getLatitude();
+        Float sLongitude = AppController.getInstance().getLongitude();
         Float dLatitude = selectedVenue.getLatitude();
         Float dLongitude = selectedVenue.getLongitude();
 

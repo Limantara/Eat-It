@@ -53,7 +53,7 @@ public class SetLocation extends AppCompatActivity implements FragmentDrawer.Fra
 
         try {
             Geocoder gcd = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = gcd.getFromLocation(AppController.getLatitude(), AppController.getLongitude(), 1);
+            List<Address> addresses = gcd.getFromLocation(AppController.getInstance().getLatitude(), AppController.getInstance().getLongitude(), 1);
 
             if (addresses.size() > 0)
                 cityName.setText(addresses.get(0).getLocality());

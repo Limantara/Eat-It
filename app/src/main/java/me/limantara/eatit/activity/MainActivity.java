@@ -1,8 +1,8 @@
 package me.limantara.eatit.activity;
 
-import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity
         switchFragment(position);
     }
 
+
+    public void requestSuggestion(View view) {
+        switchFragment(AppController.LATEST_SUGGESTION);
+    }
+
     /**
      * Helper method to set up the navigation drawer
      */
@@ -88,6 +93,11 @@ public class MainActivity extends AppCompatActivity
         drawerFragment.setDrawerListener(this);
     }
 
+    /**
+     * Helper method to switch between fragments
+     *
+     * @param state
+     */
     private void switchFragment(int state) {
         CURRENT_STATE = state;
         setToolbarTitle();
@@ -144,8 +154,6 @@ public class MainActivity extends AppCompatActivity
                 return null;
         }
     }
-
-
 
 //    private void unbindDrawables(View view) {
 //        if (view.getBackground() != null)
